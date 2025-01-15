@@ -1,15 +1,13 @@
 package com.example.smartTerrarium.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Getter
 @Entity
 @Table(name = "terrarium_state")
 @Builder

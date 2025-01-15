@@ -1,12 +1,10 @@
 package com.example.smartTerrarium.controller;
 
-import com.example.smartTerrarium.dto.UserDataDto;
 import com.example.smartTerrarium.entity.User;
 import com.example.smartTerrarium.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

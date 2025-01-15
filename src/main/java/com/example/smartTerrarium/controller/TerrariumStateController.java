@@ -1,6 +1,6 @@
 package com.example.smartTerrarium.controller;
 
-import com.example.smartTerrarium.entity.TerrariumState;
+import com.example.smartTerrarium.dto.TerrariumStateDto;
 import com.example.smartTerrarium.service.TerrariumStateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestControllerg
+@RestController
 @RequiredArgsConstructor
 public class TerrariumStateController {
     @Autowired
     private final TerrariumStateService terrariumStateService;
 
     @GetMapping("/terrarium_state")
-    public ResponseEntity<List<TerrariumState>> getTerrariumState() {
+    public ResponseEntity<List<TerrariumStateDto>> getTerrariumState() {
         return ResponseEntity.ok(terrariumStateService.getAllTerrariumStates());
+    }
+
+    @GetMapping("/terrarium_state/current")
+    public ResponseEntity<TerrariumStateDto> getCurrentTerrariumState() {
+        return ResponseEntity.ok(terrariumStateService.getCurrentTerrariumState());
     }
 }
