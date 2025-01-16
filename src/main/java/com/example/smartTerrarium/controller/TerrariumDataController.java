@@ -1,10 +1,11 @@
 package com.example.smartTerrarium.controller;
 
+import com.example.smartTerrarium.dto.SendTerrariumCommandDto;
 import com.example.smartTerrarium.dto.TerrariumDataDto;
 import com.example.smartTerrarium.entity.TerrariumData;
-import com.example.smartTerrarium.service.SettingService;
 import com.example.smartTerrarium.service.TerrariumDataService;
 import com.example.smartTerrarium.service.TerrariumStateService;
+import com.example.smartTerrarium.service.VentilationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +19,18 @@ public class TerrariumDataController {
     @Autowired
     private final TerrariumDataService terrariumDataService;
     private final TerrariumStateService terrariumStateService;
-    private final SettingService settingService;
+    private final VentilationService ventilationService;
 
     @GetMapping("/dataTerrarium")
-    public ResponseEntity<TerrariumData> getTemperatureFromTerrarium(@RequestBody TerrariumDataDto terrariumDataDto) {
+    public ResponseEntity<Void> getTemperatureFromTerrarium(@RequestBody TerrariumDataDto terrariumDataDto) {
             TerrariumData terrariumData = terrariumDataService.saveTerrariumData(terrariumDataDto);
             terrariumStateService.addNewTerrariumState(terrariumData);
-            settingService.checkIfTurnOnVentilation(terrariumDataDto.getMoisture()); //ventylator
-            return ResponseEntity.ok(terrariumData);
+            return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/ventilation")
+    public ResponseEntity<SendTerrariumCommandDto> sendVentilationCommand() {
+        double moisture = terrariumStateService.getCurrentTerrariumStateAndMapToDto().getMoisture();
+        return ResponseEntity.ok(ventilationService.sendVentilationCommand(moisture));
     }
 
 }

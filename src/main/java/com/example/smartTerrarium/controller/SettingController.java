@@ -47,7 +47,6 @@ public class SettingController {
     @PostMapping("/applySetting/{id}")
     public ResponseEntity<TerrariumDataDto> applySetting(@PathVariable Integer id) {
         return ResponseEntity.ok(settingService.applySetting(id));
-        //check if ventilation should be turn on
     }
 
     @DeleteMapping("/setting/{id}")

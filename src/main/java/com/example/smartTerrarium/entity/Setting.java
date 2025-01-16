@@ -3,7 +3,7 @@ package com.example.smartTerrarium.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -25,9 +25,9 @@ public class Setting {
     @Column(name = "water_over_week")
     private double waterOverWeek;
     @Column(name = "irradiation_start")
-    private LocalDateTime irradiationStart;
+    private LocalTime irradiationStart;
     @Column(name = "irradiation_stop")
-    private LocalDateTime irradiationStop;
+    private LocalTime irradiationStop;
     @Column(name = "is_custom")
     private boolean isCustom;
     @Column(name = "last_updated")

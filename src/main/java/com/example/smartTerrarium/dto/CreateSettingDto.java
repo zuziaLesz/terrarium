@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +16,6 @@ public class CreateSettingDto {
     private double temperature;
     private double moisture;
     private double waterOverWeek;
-    private LocalDateTime irradiationStart;
-    private LocalDateTime irradiationStop;
+    private LocalTime irradiationStart;
+    private LocalTime irradiationStop;
 }

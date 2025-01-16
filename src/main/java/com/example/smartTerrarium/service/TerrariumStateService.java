@@ -23,22 +23,38 @@ public class TerrariumStateService {
         TerrariumState terrariumState =TerrariumState.builder()
                 .temperature(terrariumData.getTemperature())
                 .moisture(terrariumData.getMoisture())
-                .irradiation(true) //add irradiation when irradiation service works
-                .ventilation(true) //add ventilation when scheduled
+                .irradiation(getCurrentTerrariumState().isIrradiation()) //add irradiation when irradiation service works
+                .ventilation(getCurrentTerrariumState().isVentilation()) //add ventilation when scheduled
                 .lastUpdate(terrariumData.getLastUpdate())
                 .build();
         terrariumStateRepository.save(terrariumState);
     }
 
-    public TerrariumStateDto getCurrentTerrariumState() {
-        TerrariumState terrariumState = terrariumStateRepository.findMostRecent().orElseThrow(() -> new NoTerrariumStateException());
+    public TerrariumStateDto getCurrentTerrariumStateAndMapToDto() {
+        TerrariumState terrariumState = getCurrentTerrariumState();
         return mapTerrariumStateToDto(terrariumState);
+    }
+
+    public TerrariumState getCurrentTerrariumState() {
+        return terrariumStateRepository.findMostRecent().orElseThrow(() -> new NoTerrariumStateException());
     }
 
     public List<TerrariumStateDto> getAllTerrariumStates() {
         return terrariumStateRepository.findAll().stream()
                 .map(this::mapTerrariumStateToDto)
                 .collect(Collectors.toList());
+    }
+
+    public void changeIrradiation(boolean irradiation) {
+        TerrariumState currentState = getCurrentTerrariumState();
+        currentState.setIrradiation(irradiation);
+        terrariumStateRepository.save(currentState);
+    }
+
+    public void changeVentilation(boolean ventilation) {
+        TerrariumState currentState = getCurrentTerrariumState();
+        currentState.setVentilation(ventilation);
+        terrariumStateRepository.save(currentState);
     }
 
     private TerrariumStateDto mapTerrariumStateToDto(TerrariumState terrariumState) {

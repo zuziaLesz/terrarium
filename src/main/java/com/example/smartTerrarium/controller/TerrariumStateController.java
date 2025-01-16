@@ -23,6 +23,6 @@ public class TerrariumStateController {
 
     @GetMapping("/terrarium_state/current")
     public ResponseEntity<TerrariumStateDto> getCurrentTerrariumState() {
-        return ResponseEntity.ok(terrariumStateService.getCurrentTerrariumState());
+        return ResponseEntity.ok(terrariumStateService.getCurrentTerrariumStateAndMapToDto());
     }
 }

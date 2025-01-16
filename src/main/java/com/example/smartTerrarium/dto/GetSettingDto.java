@@ -2,7 +2,7 @@ package com.example.smartTerrarium.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Builder
@@ -17,8 +17,8 @@ public class GetSettingDto {
     private double temperature;
     private double moisture;
     private double waterOverWeek;
-    private LocalDateTime irradiationStart;
-    private LocalDateTime irradiationStop;
+    private LocalTime irradiationStart;
+    private LocalTime irradiationStop;
     private boolean isCustom;
     private Date lastUpdated;
     private boolean isCurrentlyUsed;

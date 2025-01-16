@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -74,7 +75,6 @@ public class SettingService {
     public TerrariumDataDto applySetting(Integer id) {
         changeCurrentSetting(id);
         Setting setting = getCurrentSetting();
-        //check if the fan should be turned on
         return TerrariumDataDto.builder()
                 .temperature(setting.getTemperature())
                 .moisture(setting.getMoisture())
@@ -82,9 +82,11 @@ public class SettingService {
     }
 
     private void changeCurrentSetting(Integer id) {
-        Setting previousSetting = getCurrentSetting();
-        previousSetting.setCurrentlyUsed(false);
-        settingRepository.save(previousSetting);
+        if(doesCurrentSettingExist()) {
+            Setting previousSetting = getCurrentSetting();
+            previousSetting.setCurrentlyUsed(false);
+            settingRepository.save(previousSetting);
+        }
         Setting setting = getSettingById(id);
         setting.setCurrentlyUsed(true);
         settingRepository.save(setting);
@@ -114,11 +116,7 @@ public class SettingService {
         return settingRepository.findCurrentlyUsed().orElseThrow(() -> new NoCurrentSettingException());
     }
 
-    public boolean checkIfTurnOnVentilation(double moisture) {
-        Double settingMoisture = getCurrentSetting().getMoisture();
-        if(settingMoisture>moisture) return true;
-        else return false;
-    }
+
 
     private GetSettingDto mapSettingToDto(Setting setting) {
         return GetSettingDto.builder()
@@ -135,6 +133,14 @@ public class SettingService {
                 .isCurrentlyUsed(setting.isCurrentlyUsed())
                 .userId(setting.getUserId())
                 .build();
+    }
+
+    private boolean doesCurrentSettingExist() {
+        Optional<Setting> currentSetting = settingRepository.findCurrentlyUsed();
+        if(currentSetting.isPresent()){
+            return true;
+        }
+        else return false;
     }
 
 
