@@ -128,6 +128,7 @@ public class SettingService {
                 .temperature(setting.getTemperature())
                 .moisture(setting.getMoisture())
                 .waterOverWeek(setting.getWaterOverWeek())
+                .frequency(setting.getFrequency())
                 .irradiationStart(setting.getIrradiationStart())
                 .irradiationStop(setting.getIrradiationStop())
                 .isCustom(setting.isCustom())

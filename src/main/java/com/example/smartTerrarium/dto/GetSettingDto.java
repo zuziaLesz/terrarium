@@ -17,6 +17,7 @@ public class GetSettingDto {
     private double temperature;
     private double moisture;
     private double waterOverWeek;
+    private double frequency;
     private LocalTime irradiationStart;
     private LocalTime irradiationStop;
     private boolean isCustom;
