@@ -35,6 +35,12 @@
 			<version>8.0.23</version> <!-- Ensure compatibility with MySQL 8.0.23 -->
 		</dependency>
 
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>3.5.1</version>
+		</dependency>
+
 		<!-- Hibernate Core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -66,6 +72,37 @@
 				<configuration>
 					<source>21</source>
 					<target>21</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>21</source>
+					<target>21</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.4.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>war</goal>
+						</goals>
+						<configuration>
+							<classifier>web</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.example.smartTerrarium.SmartTerrariumApplication</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -10,8 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,10 +30,16 @@ public class TerrariumDataController {
             terrariumStateService.addNewTerrariumState(terrariumData);
             return ResponseEntity.noContent().build();
     }
-    @GetMapping("/ventilation")
-    public ResponseEntity<SendTerrariumCommandDto> sendVentilationCommand() {
+    @PostMapping("/ventilation")
+    public ResponseEntity<SendTerrariumCommandDto> sendVentilationCommand() throws IOException {
         double moisture = terrariumStateService.getCurrentTerrariumStateAndMapToDto().getMoisture();
         return ResponseEntity.ok(ventilationService.sendVentilationCommand(moisture));
+    }
+
+    @PostMapping("/humidifier")
+    public ResponseEntity<SendTerrariumCommandDto> sendHumidifierCommand() throws IOException {
+        double moisture = terrariumStateService.getCurrentTerrariumStateAndMapToDto().getMoisture();
+        return ResponseEntity.ok(ventilationService.sendHumidifierCommand(moisture));
     }
 
 }

@@ -41,6 +41,7 @@ public class SettingService {
         setting.setTemperature(createSettingDto.getTemperature());
         setting.setMoisture(createSettingDto.getMoisture());
         setting.setWaterOverWeek(createSettingDto.getWaterOverWeek());
+        setting.setFrequency(createSettingDto.getFrequency());
         setting.setIrradiationStart(createSettingDto.getIrradiationStart());
         setting.setIrradiationStop(createSettingDto.getIrradiationStop());
         setting.setLastUpdated(new Date());
@@ -98,6 +99,7 @@ public class SettingService {
                 .temperature(createSettingDto.getTemperature())
                 .moisture(createSettingDto.getMoisture())
                 .waterOverWeek(createSettingDto.getWaterOverWeek())
+                .frequency(createSettingDto.getFrequency())
                 .irradiationStart(createSettingDto.getIrradiationStart())
                 .irradiationStop(createSettingDto.getIrradiationStop())
                 .isCustom(true)

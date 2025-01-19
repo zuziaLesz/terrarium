@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RequiredArgsConstructor
 @RestController
 public class IrradiationController {
@@ -16,7 +18,7 @@ public class IrradiationController {
     private final IrradiationService irradiationService;
 
     @PostMapping("/lights")
-    public ResponseEntity<SendTerrariumCommandDto> turnLightsOn() {
+    public ResponseEntity<SendTerrariumCommandDto> turnLightsOn() throws IOException {
         return ResponseEntity.ok(irradiationService.turnIrradiationOnOff());
     }
 }

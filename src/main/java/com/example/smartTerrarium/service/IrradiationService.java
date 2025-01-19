@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalTime;
 
 @Service
@@ -20,7 +21,7 @@ public class IrradiationService {
         return settingRepository.findCurrentlyUsed().orElseThrow(() -> new RuntimeException("No currently used setting"));
     }
 
-    public SendTerrariumCommandDto turnIrradiationOnOff() {
+    public SendTerrariumCommandDto turnIrradiationOnOff() throws IOException {
         String message;
         LocalTime timeIrradiationStarts = getStartIrradiationTime();
         LocalTime timeIrradiationStops = getEndIrradiationTime();
@@ -32,14 +33,16 @@ public class IrradiationService {
             terrariumStateService.changeIrradiation(true);
             message = "off";
         }
-        else message = null;
+        else message = "null";
         return buildIrradiationMessage(message);
     }
 
-    private SendTerrariumCommandDto buildIrradiationMessage(String message) {
+    private SendTerrariumCommandDto buildIrradiationMessage(String message) throws IOException {
         SendTerrariumCommandDto command = new SendTerrariumCommandDto();
         command.setId(27);
         command.setCommand(message);
+        String[] cmd = { "bash", "-c", "home/ubuntu/PythonScripts/change_device_mode.py 27 " + message };
+        Process p = Runtime.getRuntime().exec(cmd);
         return command;
     }
 

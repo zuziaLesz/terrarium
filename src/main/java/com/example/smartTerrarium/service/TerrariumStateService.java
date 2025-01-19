@@ -20,11 +20,21 @@ public class TerrariumStateService {
     private final TerrariumStateRepository terrariumStateRepository;
 
     public void addNewTerrariumState(TerrariumData terrariumData) {
+        boolean irradiation;
+        boolean ventilation;
+        if(terrariumStateRepository.findMostRecent().isEmpty()) {
+            irradiation = false;
+            ventilation = false;
+        }
+        else {
+            irradiation = getCurrentTerrariumState().isIrradiation();
+            ventilation = getCurrentTerrariumState().isVentilation();
+        }
         TerrariumState terrariumState =TerrariumState.builder()
                 .temperature(terrariumData.getTemperature())
                 .moisture(terrariumData.getMoisture())
-                .irradiation(getCurrentTerrariumState().isIrradiation()) //add irradiation when irradiation service works
-                .ventilation(getCurrentTerrariumState().isVentilation()) //add ventilation when scheduled
+                .irradiation(irradiation) //add irradiation when irradiation service works
+                .ventilation(ventilation) //add ventilation when scheduled
                 .lastUpdate(terrariumData.getLastUpdate())
                 .build();
         terrariumStateRepository.save(terrariumState);

@@ -24,6 +24,7 @@ public class Setting {
     private double moisture;
     @Column(name = "water_over_week")
     private double waterOverWeek;
+    private double frequency;
     @Column(name = "irradiation_start")
     private LocalTime irradiationStart;
     @Column(name = "irradiation_stop")
