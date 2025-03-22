@@ -34,6 +34,11 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.23</version> <!-- Ensure compatibility with MySQL 8.0.23 -->
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>3.4.4</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>

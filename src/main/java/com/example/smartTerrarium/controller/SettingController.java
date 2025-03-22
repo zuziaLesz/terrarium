@@ -17,6 +17,8 @@ public class SettingController {
     public SettingController(SettingService settingService) {
         this.settingService = settingService;
     }
+
+    @CrossOrigin(origins = "http://localhost:63342")
     @PostMapping("/setting")
     public ResponseEntity<Void> createSetting(@RequestBody CreateSettingDto createSettingDto) {
         settingService.createSetting(createSettingDto);

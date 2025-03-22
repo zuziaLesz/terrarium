@@ -5,6 +5,7 @@ import com.example.smartTerrarium.service.TerrariumStateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ public class TerrariumStateController {
         return ResponseEntity.ok(terrariumStateService.getAllTerrariumStates());
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @GetMapping("/terrarium_state/current")
     public ResponseEntity<TerrariumStateDto> getCurrentTerrariumState() {
         return ResponseEntity.ok(terrariumStateService.getCurrentTerrariumStateAndMapToDto());

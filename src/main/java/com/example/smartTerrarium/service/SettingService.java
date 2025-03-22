@@ -29,6 +29,7 @@ public class SettingService {
     public void createSetting(CreateSettingDto createSettingDto) {
         Setting setting = buildSettingFromCreateSetting(createSettingDto);
         settingRepository.save(setting);
+        changeCurrentSetting(setting.getId());
     }
 
     public void editSetting(Integer id, CreateSettingDto createSettingDto) {
