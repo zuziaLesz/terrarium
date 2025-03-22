@@ -1,6 +1,5 @@
 package com.example.smartTerrarium.controller;
 
-import com.example.smartTerrarium.dto.GetSettingDto;
 import com.example.smartTerrarium.dto.RaspberrySetting;
 import com.example.smartTerrarium.dto.RaspberryState;
 import com.example.smartTerrarium.service.RaspberryService;
