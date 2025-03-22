@@ -115,7 +115,7 @@ public class SettingService {
 
     }
     public Setting getCurrentSetting() {
-        return settingRepository.findCurrentlyUsed().orElseThrow(() -> new NoCurrentSettingException());
+        return settingRepository.findCurrentlyUsed().orElseThrow(NoCurrentSettingException::new);
     }
 
 
