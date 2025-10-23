@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -42,11 +43,13 @@ public class SettingService {
         setting.setTemperature(createSettingDto.getTemperature());
         setting.setMoisture(createSettingDto.getMoisture());
         setting.setWaterOverWeek(createSettingDto.getWaterOverWeek());
-        setting.setFrequency(createSettingDto.getFrequency());
-        setting.setIrradiationStart(createSettingDto.getIrradiationStart());
-        setting.setIrradiationStop(createSettingDto.getIrradiationStop());
+        setting.setLightStart(createSettingDto.getLightStart());
+        setting.setLightStart(createSettingDto.getLightStop());
+        setting.setWateringMethod(createSettingDto.getWateringMethod());
+        setting.setLightVolume(createSettingDto.getLightVolume());
         setting.setLastUpdated(new Date());
         setting.setUserId(1);  //add a user when user service is done
+        setting.setWateringDays(mapWateringDaysToString(createSettingDto.getWateringDays()));
         settingRepository.save(setting);
     }
 
@@ -94,20 +97,23 @@ public class SettingService {
         settingRepository.save(setting);
     }
     private Setting buildSettingFromCreateSetting(CreateSettingDto createSettingDto) {
-        return Setting.builder()
+        Setting setting = Setting.builder()
                 .name(createSettingDto.getName())
                 .description(createSettingDto.getDescription())
                 .temperature(createSettingDto.getTemperature())
                 .moisture(createSettingDto.getMoisture())
                 .waterOverWeek(createSettingDto.getWaterOverWeek())
-                .frequency(createSettingDto.getFrequency())
-                .irradiationStart(createSettingDto.getIrradiationStart())
-                .irradiationStop(createSettingDto.getIrradiationStop())
+                .lightStart(createSettingDto.getLightStart())
+                .lightStop(createSettingDto.getLightStop())
+                .wateringMethod(createSettingDto.getWateringMethod())
+                .lightVolume(createSettingDto.getLightVolume())
                 .isCustom(true)
                 .lastUpdated(new Date())
                 .isCurrentlyUsed(false)
                 .userId(1)  //add user when user service is done
                 .build();
+        setting.setWateringDays(mapWateringDaysToString(createSettingDto.getWateringDays()));
+        return setting;
     }
 
     public GetSettingDto getCurrentSettingAndMap() {
@@ -122,21 +128,24 @@ public class SettingService {
 
 
     private GetSettingDto mapSettingToDto(Setting setting) {
-        return GetSettingDto.builder()
+        GetSettingDto settingDto = GetSettingDto.builder()
                 .id(setting.getId())
                 .name(setting.getName())
                 .description(setting.getDescription())
                 .temperature(setting.getTemperature())
                 .moisture(setting.getMoisture())
                 .waterOverWeek(setting.getWaterOverWeek())
-                .frequency(setting.getFrequency())
-                .irradiationStart(setting.getIrradiationStart())
-                .irradiationStop(setting.getIrradiationStop())
+                .lightStart(setting.getLightStart())
+                .lightStop(setting.getLightStop())
                 .isCustom(setting.isCustom())
                 .lastUpdated(setting.getLastUpdated())
                 .isCurrentlyUsed(setting.isCurrentlyUsed())
                 .userId(setting.getUserId())
+                .wateringMethod(setting.getWateringMethod())
+                .lightVolume(setting.getLightVolume())
                 .build();
+        settingDto.setWateringDays(mapWateringDaysToList(setting.getWateringDays()));
+        return settingDto;
     }
 
     private boolean doesCurrentSettingExist() {
@@ -147,5 +156,15 @@ public class SettingService {
         else return false;
     }
 
+    private String mapWateringDaysToString(List<String> listOfDays) {
+        return listOfDays.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.joining(","));
+    }
 
+    private List<String> mapWateringDaysToList(String listOfDays) {
+        return Arrays.stream(listOfDays.split(","))
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+    }
 }

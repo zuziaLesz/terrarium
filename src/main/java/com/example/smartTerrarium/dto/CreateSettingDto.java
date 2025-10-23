@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +17,9 @@ public class CreateSettingDto {
     private double temperature;
     private double moisture;
     private double waterOverWeek;
-    private double frequency;
-    private LocalTime irradiationStart;
-    private LocalTime irradiationStop;
+    private LocalTime lightStart;
+    private LocalTime lightStop;
+    private String wateringMethod;
+    private double lightVolume;
+    List<String> wateringDays;
 }

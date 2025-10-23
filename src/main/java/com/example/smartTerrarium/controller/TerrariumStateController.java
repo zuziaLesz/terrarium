@@ -22,7 +22,6 @@ public class TerrariumStateController {
         return ResponseEntity.ok(terrariumStateService.getAllTerrariumStates());
     }
 
-    @CrossOrigin(origins = "http://localhost:63342")
     @GetMapping("/terrarium_state/current")
     public ResponseEntity<TerrariumStateDto> getCurrentTerrariumState() {
         return ResponseEntity.ok(terrariumStateService.getCurrentTerrariumStateAndMapToDto());

@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,11 +25,13 @@ public class Setting {
     private double moisture;
     @Column(name = "water_over_week")
     private double waterOverWeek;
-    private double frequency;
+    private String wateringDays;
+    private String wateringMethod;
     @Column(name = "irradiation_start")
-    private LocalTime irradiationStart;
+    private LocalTime lightStart;
     @Column(name = "irradiation_stop")
-    private LocalTime irradiationStop;
+    private LocalTime lightStop;
+    private double lightVolume;
     @Column(name = "is_custom")
     private boolean isCustom;
     @Column(name = "last_updated")

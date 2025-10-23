@@ -48,10 +48,10 @@ public class IrradiationService {
 
     private LocalTime getStartIrradiationTime() {
         Setting setting = getCurrentSetting();
-        return setting.getIrradiationStart();
+        return setting.getLightStart();
     }
     private LocalTime getEndIrradiationTime() {
         Setting setting = getCurrentSetting();
-        return setting.getIrradiationStop();
+        return setting.getLightStop();
     }
 }

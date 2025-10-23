@@ -21,5 +21,6 @@ public class TerrariumState {
     private double temperature;
     private double moisture;
     private boolean ventilation;
-    private boolean irradiation;
+    private boolean light;
+    private boolean heating;
 }

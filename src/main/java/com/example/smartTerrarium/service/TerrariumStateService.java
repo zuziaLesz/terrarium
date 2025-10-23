@@ -27,13 +27,13 @@ public class TerrariumStateService {
             ventilation = false;
         }
         else {
-            irradiation = getCurrentTerrariumState().isIrradiation();
+            irradiation = getCurrentTerrariumState().isLight();
             ventilation = getCurrentTerrariumState().isVentilation();
         }
         TerrariumState terrariumState =TerrariumState.builder()
                 .temperature(terrariumData.getTemperature())
                 .moisture(terrariumData.getMoisture())
-                .irradiation(irradiation) //add irradiation when irradiation service works
+                .light(irradiation) //add irradiation when irradiation service works
                 .ventilation(ventilation) //add ventilation when scheduled
                 .lastUpdate(terrariumData.getLastUpdate())
                 .build();
@@ -55,9 +55,9 @@ public class TerrariumStateService {
                 .collect(Collectors.toList());
     }
 
-    public void changeIrradiation(boolean irradiation) {
+    public void changeIrradiation(boolean light) {
         TerrariumState currentState = getCurrentTerrariumState();
-        currentState.setIrradiation(irradiation);
+        currentState.setLight(light);
         terrariumStateRepository.save(currentState);
     }
 
@@ -67,6 +67,16 @@ public class TerrariumStateService {
         terrariumStateRepository.save(currentState);
     }
 
+    public void changeHeating(boolean heating) {
+        TerrariumState currentState = getCurrentTerrariumState();
+        currentState.setHeating(heating);
+        terrariumStateRepository.save(currentState);
+    }
+
+    public void save(TerrariumState terrariumState) {
+        terrariumStateRepository.save(terrariumState);
+    }
+
     private TerrariumStateDto mapTerrariumStateToDto(TerrariumState terrariumState) {
         return TerrariumStateDto.builder()
                 .id(terrariumState.getId())
@@ -74,7 +84,7 @@ public class TerrariumStateService {
                 .temperature(terrariumState.getTemperature())
                 .moisture(terrariumState.getMoisture())
                 .ventilation(terrariumState.isVentilation())
-                .irradiation(terrariumState.isIrradiation())
+                .irradiation(terrariumState.isLight())
                 .build();
     }
 }

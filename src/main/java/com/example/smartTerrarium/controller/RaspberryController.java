@@ -2,6 +2,7 @@ package com.example.smartTerrarium.controller;
 
 import com.example.smartTerrarium.dto.RaspberrySetting;
 import com.example.smartTerrarium.dto.RaspberryState;
+import com.example.smartTerrarium.dto.SendTerrariumCommandDto;
 import com.example.smartTerrarium.service.RaspberryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class RaspberryController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/setting")
-    public ResponseEntity<RaspberrySetting> getSetting() {
-       return ResponseEntity.ok(raspberryService.sendSetting());
+    @PostMapping("/heating")
+    public SendTerrariumCommandDto sendHeating(@RequestBody RaspberrySetting raspberrySetting) {
+        return raspberryService.sendHeating(raspberrySetting);
     }
 }
